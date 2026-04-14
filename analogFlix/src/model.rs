@@ -68,3 +68,9 @@ pub struct Stats{
 
 
 }
+
+
+pub struct PageQuery {
+    pub page: Option<i32>,
+}
+
