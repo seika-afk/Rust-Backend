@@ -74,3 +74,9 @@ pub struct PageQuery {
     pub page: Option<i32>,
 }
 
+pub struct SearchQuery{
+    pub query:String,
+    pub page :Option<i32>
+
+
+}
