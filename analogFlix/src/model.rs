@@ -11,9 +11,18 @@ pub items: Vec<Video>,
 
 //////// DETAILS
 
+
+#[derive(Deserialize,Debug)]
+pub struct Id{
+
+    #[serde(rename="videoId")]
+    pub video_id:String
+}
+
+
 #[derive(Deserialize,Debug)]
 pub struct Video{
-    pub id:String,
+    pub id:Id,
     pub snippet:Snippet,
     #[serde(rename = "statistics")]
     pub statistics:Option<Stats>
