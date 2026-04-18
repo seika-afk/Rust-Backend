@@ -1,7 +1,7 @@
 
 use axum::{extract::{Path,Query,State},Json};
 
-use crate::model::{ApiResponse,Video,PageQuery,SearchQuery};
+use crate::models::{ApiResponse, Video, PageQuery, SearchQuery};
 use crate::state::AppState;
 
 
@@ -32,5 +32,38 @@ pub  async fn search_content(
 
 Json(res)
 
+
+}
+
+
+pub async fn get_trending(
+    State(state):State<AppState>
+)->Json<ApiResponse>{
+let url = format!(
+    "https://www.googleapis.com/youtube/v3/search?part=snippet&q=analog+horror+movies&type=video&order=viewCount&publishedAfter=2024-01-01T00:00:00Z&maxResults=10&key={}",
+    state.api_key
+);
+    let res= state.client.get(&url).send().await.unwrap().json::<ApiResponse>().await.unwrap();
+    Json(res)
+
+
+
+}
+
+
+pub async fn get_video(
+    State(state):State<AppState>,
+    Path(id):Path<i32>
+)->Json<Video>{
+    let url = format!(
+"https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails,statistics&id={}&key={}",
+        id,
+        state.api_key
+
+
+);
+    let res = state.client.get(&url).send().await.unwrap().json::<Video>().await.unwrap();
+
+    Json(res)
 
 }

@@ -1,6 +1,14 @@
+use axum::{routing::get, Router};
+use dotenv::dotenv;
+use std::env;
 
-use tokio::main;
+use tokio::net::TcpListener;
+use tower_http::{cors::CorsLayer, services::ServeDir};
 
-fn main() {
-    println!("Hello, world!");
-}
+mod handlers;
+mod state;
+mod models;
+
+
+use state::AppState;
+use handlers::{root, get_video, get_trending, search_content};

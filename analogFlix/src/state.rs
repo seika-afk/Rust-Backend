@@ -1,12 +1,12 @@
-use reqwest
+use reqwest;
 
 
-#[derive(clone)]
+#[derive(Clone)]
 
-pub struct appstate{
+pub struct AppState {
 
-        pub api_key : String,
-        pub client : reqwest::Client,
+        pub api_key: String,
+        pub client: reqwest::Client,
 
 
 
