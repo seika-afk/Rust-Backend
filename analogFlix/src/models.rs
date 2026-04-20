@@ -1,8 +1,8 @@
-use serde::{Deserialize};
+use serde::{Deserialize, Serialize};
 
 //////// MAIN
 
-#[derive(Deserialize,Debug)]
+#[derive(Deserialize, Serialize, Debug)]
 pub struct ApiResponse{
 pub items: Vec<Video>,
 
@@ -12,7 +12,7 @@ pub items: Vec<Video>,
 //////// DETAILS
 
 
-#[derive(Deserialize,Debug)]
+#[derive(Deserialize, Serialize, Debug)]
 pub struct Id{
 
     #[serde(rename="videoId")]
@@ -20,7 +20,7 @@ pub struct Id{
 }
 
 
-#[derive(Deserialize,Debug)]
+#[derive(Deserialize, Serialize, Debug)]
 pub struct Video{
     pub id:Id,
     pub snippet:Snippet,
@@ -33,7 +33,7 @@ pub struct Video{
 
 // SNIPPET
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Serialize, Debug)]
 pub struct Snippet {
     #[serde(rename = "publishedAt")]
     pub published_at: String,
@@ -49,12 +49,12 @@ pub struct Snippet {
 
 
 // THUMBNAILS
-#[derive(Deserialize,Debug)]
+#[derive(Deserialize, Serialize, Debug)]
 pub struct Thumbnails{
    pub default: Option<Thumbnail>,
 }
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Serialize, Debug)]
 pub struct Thumbnail {
     pub url: Option<String>,
     pub width: Option<i32>,
@@ -62,7 +62,7 @@ pub struct Thumbnail {
 }
 
 // STATS 
-#[derive(Deserialize,Debug)]
+#[derive(Deserialize, Serialize, Debug)]
 pub struct Stats{
 
     #[serde(rename="viewCount")]
@@ -78,14 +78,24 @@ pub struct Stats{
 
 }
 
-
-pub struct PageQuery {
-    pub page: Option<i32>,
-}
-
+#[derive(Deserialize, Serialize, Debug)]
 pub struct SearchQuery{
     pub query:String,
-    pub page :Option<i32>
+    pub page: Option<String>
+
+}
+
+#[derive(Deserialize, Serialize, Debug)]
+pub struct VideoDetailsResponse {
+    pub items: Vec<VideoDetails>,
+}
+
+#[derive(Deserialize, Serialize, Debug)]
+pub struct VideoDetails {
+    pub id: String,
+    pub snippet: Snippet,
+    #[serde(rename = "statistics")]
+    pub statistics: Option<Stats>,
 
 
 }

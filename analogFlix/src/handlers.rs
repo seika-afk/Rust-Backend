@@ -1,13 +1,13 @@
 
 use axum::{extract::{Path,Query,State},Json};
 
-use crate::models::{ApiResponse, Video, PageQuery, SearchQuery};
+use crate::models::{ApiResponse, SearchQuery, VideoDetailsResponse};
 use crate::state::AppState;
 
 
 
 pub async fn root()-> &'static str{
-        "Anlogflix Backend is Online"
+        "Analogflix Backend is Online"
 }
 
 
@@ -20,17 +20,26 @@ pub  async fn search_content(
     Query(params):Query<SearchQuery>
 )->Json<ApiResponse>{
 
-    let page:i32 = params.unwrap_or(1);
+    let page_token = params.page.unwrap_or_default();
 
-    let url = format!(
-        "https://www.googleapis.com/youtube/v3/search?part=snippet&q={}&maxResults=10&type=video&key={}",
-        params.query,
-        state.api_key
-    );
+    let url = if page_token.is_empty() {
+        format!(
+            "https://www.googleapis.com/youtube/v3/search?part=snippet&q={}&maxResults=10&type=video&key={}",
+            params.query,
+            state.api_key
+        )
+    } else {
+        format!(
+            "https://www.googleapis.com/youtube/v3/search?part=snippet&q={}&maxResults=10&type=video&pageToken={}&key={}",
+            params.query,
+            page_token,
+            state.api_key
+        )
+    };
 
     let res = state.client.get(&url).send().await.unwrap().json::<ApiResponse>().await.unwrap();
 
-Json(res)
+    Json(res)
 
 
 }
@@ -53,8 +62,8 @@ let url = format!(
 
 pub async fn get_video(
     State(state):State<AppState>,
-    Path(id):Path<i32>
-)->Json<Video>{
+    Path(id):Path<String>
+)->Json<VideoDetailsResponse>{
     let url = format!(
 "https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails,statistics&id={}&key={}",
         id,
@@ -62,7 +71,7 @@ pub async fn get_video(
 
 
 );
-    let res = state.client.get(&url).send().await.unwrap().json::<Video>().await.unwrap();
+    let res = state.client.get(&url).send().await.unwrap().json::<VideoDetailsResponse>().await.unwrap();
 
     Json(res)
 
