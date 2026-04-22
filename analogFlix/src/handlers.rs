@@ -49,8 +49,8 @@ pub async fn get_trending(
     State(state):State<AppState>
 )->Json<ApiResponse>{
 let url = format!(
-    "https://www.googleapis.com/youtube/v3/search?part=snippet&q=analog+horror+movies&type=video&order=viewCount&publishedAfter=2024-01-01T00:00:00Z&maxResults=10&key={}",
-    state.api_key
+"https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&q=analog horror VHS tape ARG film&videoDuration=medium&videoEmbeddable=true&maxResults=25&key={}",
+state.api_key
 );
     let res= state.client.get(&url).send().await.unwrap().json::<ApiResponse>().await.unwrap();
     Json(res)
