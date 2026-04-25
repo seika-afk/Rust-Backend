@@ -1,6 +1,6 @@
 use axum::{routing::get, Router};
 use dotenv::dotenv;
-use std::env;
+use std::{env, net::SocketAddr};
 
 use tower_http::{cors::CorsLayer, services::ServeDir};
 
@@ -17,7 +17,13 @@ use handlers::{root, get_video, get_trending, search_content};
 async fn main() {
     dotenv().ok();
 
-    let api_key = env::var("api_key").expect("API KEY must be set");
+    let api_key = env::var("api_key")
+        .or_else(|_| env::var("API_KEY"))
+        .expect("API key must be set as `api_key` or `API_KEY`");
+    let port = env::var("PORT")
+        .ok()
+        .and_then(|value| value.parse::<u16>().ok())
+        .unwrap_or(8000);
     let state = AppState {
         api_key,
         client: reqwest::Client::new(),
@@ -34,8 +40,8 @@ async fn main() {
         .layer(cors)
         .with_state(state);
 
-    let listener = tokio::net::TcpListener::bind("0.0.0.0:8000").await.unwrap()
-;
+    let addr = SocketAddr::from(([0, 0, 0, 0], port));
+    let listener = tokio::net::TcpListener::bind(addr).await.unwrap();
     println!("Server listening on http://{}",listener.local_addr().unwrap());
 
     axum::serve(listener, app).await.unwrap();}
