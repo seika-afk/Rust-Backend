@@ -2,8 +2,7 @@
 
 import SidePlayer from "@/components/SidePlayer";
 import VidCard from "@/components/VidCard";
-import VideoCard from "@/components/VidCard";
-import { Birdhouse, Cable, Link, Search, X } from "lucide-react";
+import { Birdhouse, Cable, Search, X } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 export default function Home() {
@@ -48,13 +47,37 @@ export default function Home() {
                     handleSearch();
                   }
                 }}
-                placeholder="Title, author, host, or topic"
+                placeholder="Title, Channel , Topic ..."
                 className="bg-transparent outline-none border-none text-[#E6E1E5] placeholder-[#CAC4D0] w-full text-sm"
               />
             </div>
           </div>
-          <div className="bg-[#1D1B20] flex flex-col p-5 text-white w-full flex-1  border-[#49454F] border-b-3">
-            <VidCard />
+          <div className="bg-[#1D1B20] flex flex-col p-5 text-white w-full flex-1 overflow-y-auto min-h-0 border-[#49454F] border-b-3">
+            <div className="grid w-full grid-cols-[repeat(auto-fill,minmax(260px,1fr))] gap-8 p-5 items-start">
+              <VidCard />
+              <VidCard />
+              <VidCard />
+              <VidCard />
+              <VidCard />
+              <VidCard />
+              <VidCard />
+              <VidCard />
+              <VidCard />
+              <VidCard />
+              <VidCard />
+              <VidCard />
+              <VidCard />
+              <VidCard />
+              <VidCard />
+              <VidCard />
+              <VidCard />
+              <VidCard />
+              <VidCard />
+              <VidCard />
+              <VidCard />
+              <VidCard />
+              <VidCard />
+            </div>
           </div>{" "}
         </div>
       </div>
