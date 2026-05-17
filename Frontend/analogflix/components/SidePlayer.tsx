@@ -1,9 +1,13 @@
+import { Ghost, GhostIcon, Play } from "lucide-react";
+
 const SidePlayer = () => {
   return (
     <div className="flex flex-col items-center">
       {/* Top bar */}
-      <div className="bg-green-400 w-full h-19.5 border-b-3 border-black flex items-center px-6">
-        LIMINAL
+      <div className="bg-[#383838] text-[#b8b8b8] flex items-center justify-center w-full h-19.5 border-b-3 border-black flex items-center px-6">
+        <Ghost size={30} />
+
+        <p className="text-3xl font-bold"> LIMINAL </p>
       </div>
 
       {/* Content */}
@@ -15,12 +19,13 @@ const SidePlayer = () => {
           />
         </div>
 
-        <button className="w-[320px] mt-3 py-3 bg-orange-500 text-white font-semibold flex items-center justify-center gap-2 rounded-sm hover:bg-orange-600 transition">
-          ▶ Play Sample
+        <button className=" cursor-pointer w-[320px] mt-3 py-3 bg-[#252525] text-white font-semibold flex items-center justify-center gap-2  hover:bg-[#B8B8B8] hover:text-[#383838] transition">
+          <Play size={20} />
+          Play Sample
         </button>
 
-        <div className="w-[320px] mt-2 flex border border-gray-300 rounded-sm">
-          <button className="flex-1 flex flex-col items-center justify-center py-3 gap-1 text-xs font-medium hover:bg-gray-100 transition border-r border-gray-300">
+        <div className="w-[320px] mt-2 flex border border-gray-300 ">
+          <button className=" cursor-pointer flex-1 flex flex-col items-center justify-center py-3 gap-1 text-xs font-medium hover:bg-[#B8B8B8] hover:text-[#383838] transition border-r border-gray-300">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="w-5 h-5"
@@ -37,7 +42,7 @@ const SidePlayer = () => {
             </svg>
             Channel
           </button>
-          <button className="flex-1 flex flex-col items-center justify-center py-3 gap-1 text-xs font-medium hover:bg-gray-100 transition">
+          <button className=" cursor-pointer flex-1 flex flex-col items-center justify-center py-3 gap-1 text-xs font-medium hover:bg-[#B8B8B8] hover:text-[#383838] transition">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="w-5 h-5"
@@ -59,10 +64,10 @@ const SidePlayer = () => {
         <hr className="w-[320px] mt-4 border-gray-300" />
 
         <div className="w-[320px] mt-3">
-          <h3 className="text-sm font-semibold text-gray-800 mb-1">
+          <h1 className="text-md font-semibold text-[#b8b8b8] mb-1">
             Description
-          </h3>
-          <p className="text-sm text-gray-600 leading-relaxed">
+          </h1>
+          <p className="text-sm text-[#A3A3A3] leading-relaxed">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua.
           </p>
